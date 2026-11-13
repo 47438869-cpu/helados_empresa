@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Helados Jujuy</title>
+<style>
+:root{--bg:#FFF6F8;--surface:#fff;--ink:#241A3D;--muted:#6B5F85;--line:#EBDDF0;--blue:#2D3FA8;--pink:#FF5C8A;--limon:#FFD84D;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15112B;--surface:#221C42;--ink:#F4EFFF;--muted:#B9AEDB;--line:#3A3162;--blue:#5B6EE8;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15112B;--surface:#221C42;--ink:#F4EFFF;--muted:#B9AEDB;--line:#3A3162;--blue:#5B6EE8;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,"Segoe UI",sans-serif;line-height:1.55;display:flex;flex-direction:column;min-height:100vh}
+#app{flex:1}
+h1,h2{line-height:1.15;margin:0 0 6px}
+a{color:var(--blue)}
+.wrap{max-width:980px;margin:0 auto;padding:28px 20px}
+.narrow{max-width:640px}
+header{background:#2D3FA8;color:#fff}
+header .bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding-top:12px;padding-bottom:12px}
+header a{color:#fff;text-decoration:none;font-weight:700}
+.logo{font-size:1.3rem}
+nav{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+nav a{padding:8px 14px;border-radius:999px}
+nav a:hover{background:rgba(255,255,255,.18)}
+nav .salir{background:var(--limon);color:#241A3D}
+.muted{color:var(--muted)}.small{font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:20px}
+.card{background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:20px}
+.card p{margin:4px 0 0}
+.scoop{width:72px;height:72px;border-radius:50%;margin-bottom:10px;box-shadow:inset -7px -7px 0 rgba(0,0,0,.09)}
+.precio{font-weight:800}
+.link{display:block;text-decoration:none;color:var(--ink)}
+.link:hover{border-color:var(--blue)}
+.ic{font-size:2rem;display:block;margin-bottom:6px}
+.more{display:block;margin-top:10px;font-weight:800;color:var(--blue)}
+.btn{display:inline-block;border:0;border-radius:999px;padding:12px 24px;background:var(--pink);color:#fff;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;color:#241A3D}
+.btn.alt{background:var(--blue);color:#fff}
+.cta{margin-top:28px}
+ul{margin:0;padding-left:20px}li{margin-bottom:10px}
+.aviso{background:var(--surface);border-left:6px solid var(--limon);border-radius:12px;padding:4px 16px;margin:10px 0}
+.seccion{margin-top:34px;font-size:1.35rem}
+.login{min-height:70vh;display:grid;place-items:center;padding:20px}
+.form{width:min(400px,100%);text-align:center}
+.form .btn{width:100%;margin-top:18px}
+footer{background:#2D3FA8;color:#fff;text-align:center;font-size:.9rem}
+footer .wrap{padding:18px 20px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+</style>
+</head>
+<body>
+<header><div class="wrap bar"><a class="logo" href="#helados">🍦 Helados Jujuy</a><nav id="nav" hidden><a href="#helados">Helados</a><a href="#politicas">Políticas de seguridad</a><a class="salir" href="#login" id="salir">Salir</a></nav></div></header>
+<div id="app"></div>
+<footer><div class="wrap">Helados Jujuy</div></footer>
+<script>
+const HELADOS=[{"nombre": "Pistacho", "desc": "Cremoso, con pistachos molidos.", "color": "#8FD08A", "precio": 3500}, {"nombre": "Frutilla a la crema", "desc": "Frutillas frescas y crema.", "color": "#FF8FB3", "precio": 3200}, {"nombre": "Dulce de leche", "desc": "Granizado con ribetes de dulce.", "color": "#C98A4B", "precio": 3200}, {"nombre": "Arándano", "desc": "Al agua, ácido y refrescante.", "color": "#6C74E0", "precio": 3300}, {"nombre": "Limón", "desc": "Al agua, sin lácteos.", "color": "#FFD84D", "precio": 3000}, {"nombre": "Chocolate amargo", "desc": "Intenso, con cacao 70%.", "color": "#6B3E2E", "precio": 3400}];
+const INTRO={"personal": "Las presentes políticas de seguridad establecen los lineamientos, controles y responsabilidades obligatorias para todo el personal de la heladería (cajeros, despachantes, repartidores, encargados y personal administrativo) que tenga acceso a los sistemas informáticos, terminales de cobro, redes e instalaciones físicas del negocio. Su objetivo principal es proteger la integridad, confidencialidad y disponibilidad de los activos de la empresa, prevenir fraudes o errores operativos y asegurar la continuidad del servicio frente a cualquier contingencia. El cumplimiento de estas normativas es de carácter obligatorio y su inobservancia estará sujeta a las sanciones disciplinarias correspondientes."};
+const POLITICAS={"acceso": {"ambito": "personal", "icono": "🔑", "titulo": "Autenticación y control de acceso", "resumen": "Usuarios, contraseñas y permisos por cargo.", "texto": "Todo el personal de la heladería que opere los sistemas de punto de venta (POS), gestión de stock o plataformas de delivery deberá contar con un usuario y contraseña propios e intransferibles. Queda prohibido compartir credenciales entre turnos o dejar sesiones abiertas sin supervisión."}, "backup": {"ambito": "personal", "icono": "💾", "titulo": "Copias de seguridad y continuidad del negocio", "resumen": "Backups diarios y plan ante caídas del sistema.", "texto": "Para garantizar la operatividad ante cortes de luz, fallos de hardware o pérdida de datos, la administración ejecutará copias de seguridad (backups) automáticas y diarias de las bases de datos de ventas, facturación e inventario en un entorno en la nube cifrado. Asimismo, el local mantendrá un protocolo de contingencia manual mediante talonarios físicos y una conexión de internet móvil de respaldo para continuar operando ante caídas del sistema principal."}, "red": {"ambito": "personal", "icono": "📶", "titulo": "Segmentación de red y uso de Wi-Fi interno", "resumen": "Red operativa separada de la de los clientes.", "texto": "La red inalámbrica utilizada por las terminales de caja, posnets, impresoras de comandas y cámaras de seguridad deberá estar estrictamente separada y aislada de la red Wi-Fi gratuita ofrecida a los clientes. Queda prohibido que el personal conecte sus teléfonos móviles personales a la red operativa del local o utilice los equipos de caja para navegar por internet, descargar archivos o revisar correos personales."}, "fisica": {"ambito": "personal", "icono": "📹", "titulo": "Seguridad física y videovigilancia", "resumen": "Accesos restringidos y cámaras de seguridad.", "texto": "El acceso a la oficina administrativa, al servidor o computadora principal y a la caja fuerte estará restringido únicamente al personal autorizado. El local contará con un sistema de cámaras de seguridad en puntos críticos (cajas registradoras, accesos y depósitos) cuyas grabaciones se almacenarán de forma protegida durante un mínimo de 30 días, quedando prohibido manipular, desconectar o divulgar dichas imágenes sin autorización judicial o de la gerencia."}, "efectivo": {"ambito": "personal", "icono": "💵", "titulo": "Gestión de pagos y manejo de efectivo", "resumen": "Datos de tarjetas y control del efectivo en caja.", "texto": "El personal tiene estrictamente prohibido anotar, fotografiar o almacenar datos de tarjetas de crédito o débito de los clientes fuera de las terminales de pago homologadas. Asimismo, todo cobro en efectivo deberá registrarse de inmediato en el sistema POS y depositarse en la caja registradora, realizando retiros parciales hacia la caja fuerte cada vez que se supere el límite de efectivo establecido por la administración para minimizar riesgos ante robos."}};
+const $=s=>document.querySelector(s);
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let ingreso=false;
+try{ingreso=sessionStorage.getItem("ingreso")==="1"}catch(e){}
+function setIngreso(v){ingreso=v;try{v?sessionStorage.setItem("ingreso","1"):sessionStorage.removeItem("ingreso")}catch(e){}}
+const precio=n=>"$"+n.toLocaleString("es-AR");
+function tarjeta(k,p){return `<a class="card link" href="#politica-${esc(k)}"><span class="ic" aria-hidden="true">${p.icono}</span><h3>${esc(p.titulo)}</h3><p class="muted">${esc(p.resumen)}</p><span class="more">Ver política</span></a>`}
+function vistaLogin(){return `<main class="login"><div class="card form"><div class="ic" aria-hidden="true">🍦</div><h1>Helados Jujuy</h1><p class="muted">Helados artesanales. Tocá el botón para ver nuestras variedades.</p><button class="btn" id="entrar" type="button">Ingresar</button></div></main>`}
+function vistaHelados(){return `<main class="wrap"><h1>Nuestros helados</h1><p class="muted">Elaboración artesanal cada mañana.</p><div class="grid">${HELADOS.map(h=>`<div class="card"><div class="scoop" style="background:${esc(h.color)}"></div><h2>${esc(h.nombre)}</h2><p class="muted">${esc(h.desc)}</p><p class="precio">${precio(h.precio)}</p></div>`).join("")}</div><p class="cta"><a class="btn" href="#politicas">Políticas de seguridad</a></p></main>`}
+function vistaPoliticas(){const sec=(t,intro,amb)=>`<h2 class="seccion">${t}</h2><div class="aviso"><p>${esc(intro)}</p></div><div class="grid">${Object.entries(POLITICAS).filter(([k,p])=>p.ambito===amb).map(([k,p])=>tarjeta(k,p)).join("")}</div>`;
+return `<main class="wrap"><h1>Políticas de seguridad</h1><p class="muted">Elegí un tema para ver el detalle.</p>${sec("Políticas de Seguridad de la Información – Ámbito Interno (Personal y Operación)",INTRO.personal,"personal")}<p class="cta"><a class="btn alt" href="#helados">Volver a los helados</a></p></main>`}
+function vistaPolitica(k){const p=POLITICAS[k];const et="Uso interno · Personal y operación";
+return `<main class="wrap narrow"><p><a href="#politicas">← Políticas de seguridad</a></p><p class="muted small">${et}</p><h1>${p.icono} ${esc(p.titulo)}</h1><div class="card" style="margin-top:16px"><p>${esc(p.texto)}</p></div><p class="cta"><a class="btn alt" href="#politicas">Ver otras políticas</a></p></main>`}
+function ruta(){
+ let h=location.hash.replace(/^#/,"");
+ if(!ingreso&&h!=="login"){location.hash="login";return}
+ if(ingreso&&(h===""||h==="login")){location.hash="helados";return}
+ let html,tit="Helados";
+ if(h==="helados"){html=vistaHelados()}
+ else if(h==="politicas"){html=vistaPoliticas();tit="Políticas de seguridad"}
+ else if(h.startsWith("politica-")&&POLITICAS[h.slice(9)]){const k=h.slice(9);html=vistaPolitica(k);tit=POLITICAS[k].titulo}
+ else if(h==="login"){html=vistaLogin();tit="Bienvenido"}
+ else{location.hash="politicas";return}
+ $("#app").innerHTML=html;$("#nav").hidden=!ingreso;document.title=tit+" · Helados Jujuy";window.scrollTo(0,0);
+ const b=$("#entrar");if(b)b.onclick=()=>{setIngreso(true);location.hash="helados"};
+}
+$("#salir").onclick=()=>setIngreso(false);
+window.addEventListener("hashchange",ruta);ruta();
+</script>
+</body>
+</html>
